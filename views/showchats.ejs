@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+</head>
+<body>
+    <h1>Messages in Database</h1>
+    <form action="/chats/new" method="GET">
+        <button>Create Chat</button>
+    </form>
+   <% for(let msg of msgs){%>
+       <div class="box">
+        <p>From: <%=msg.from%></p>
+        <p>To: <%=msg.to%></p>
+        <p>Message: <%=msg.message%></p>
+        <p>Created At: <%=msg.createdAt.toString().split(" ")[4]%></p>
+        <p><%=msg.createdAt.toString().split(" ").slice(0,4).join(" ")%></p>
+        <form action="/chats/<%=msg._id%>/edit" method="GET">
+            <button>Edit</button>
+        </form>
+        
+        <form action="/chats/<%= msg._id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this chat?');">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+        <hr>
+  <%  } %>
+
+</body>
+</html>
